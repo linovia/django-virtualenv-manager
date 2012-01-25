@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'venvmanager',
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging

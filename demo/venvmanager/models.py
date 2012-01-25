@@ -46,6 +46,10 @@ class Version(models.Model):
         return self.venv.name
     venv_name.admin_order_field = 'venv__name'
 
+    def server_name(self):
+        return self.venv.server.name
+    venv_name.admin_order_field = 'venv__server__name'
+
     def package_name(self):
         return self.package.name
     package_name.admin_order_field = 'package__name'

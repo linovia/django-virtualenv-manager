@@ -41,8 +41,8 @@ class PackageAdmin(admin.ModelAdmin):
 
 
 class VersionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'package_name', 'venv_name')
-    list_filter = ('package',)
+    list_display = ('id', 'name', 'package_name', 'venv_name', 'server_name')
+    list_filter = ('package', 'venv')
 
 
 admin.site.register(Server, ServerAdmin)
