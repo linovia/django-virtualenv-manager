@@ -22,6 +22,7 @@ Usage
 You are strongly adviced to create a virtualenv before installing that application.
 Please refer to http://pypi.python.org/pypi/virtualenv for more informations.
 We'll assume you are in an environment where you can install packages.
+::
 
     
     git clone git://github.com/linovia/django-virtualenv-manager.git
