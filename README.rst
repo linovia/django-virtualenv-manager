@@ -12,9 +12,8 @@ It is planned to allow upgrades from it too.
 Requirements
 ------------
 
-Fabric should be available where this application runs.
-Also pip should be installed on the destination hosts.
-You should have access with an authorized key on the destination hosts.
+* pip should be installed on the destination hosts.
+* You should have access with an authorized key on the destination hosts.
 
 
 TODO
