@@ -20,8 +20,6 @@ You should have access with an authorized key on the destination hosts.
 TODO
 ----
 
-* Create setup.py
-* Move the application as a standalone application
 * Create a front design instead of using the Django's admin
 * Exports CSV
 * Create usage summaries (what server / virtual env uses a given package version, what versions of that package are used in all the environments...).
