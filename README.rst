@@ -9,11 +9,38 @@ This has been created after I needed to upgrade several Django instances on diff
 The application is able to summarize the package usage for several python environments.
 It is planned to allow upgrades from it too.
 
+
 Requirements
 ------------
 
 * pip should be installed on the destination hosts.
 * You should have access with an authorized key on the destination hosts.
+
+Usage
+-----
+
+You are strongly adviced to create a virtualenv before installing that application.
+Please refer to http://pypi.python.org/pypi/virtualenv for more informations.
+We'll assume you are in an environment where you can install packages.
+
+    
+    git clone git://github.com/linovia/django-virtualenv-manager.git
+    cd django-virtualenv-manager
+    python setup.py develop
+    cd demo
+    python manage.py syncdb
+    python manage.py migrate
+    python manage.py runserver
+
+
+Now you can point your browser to http://localhost:8000/admin/ and login with
+the user you just created.
+
+* Create your servers (http://localhost:8000/admin/venvmanager/server/add/)
+* Create your virtual environments (http://localhost:8000/admin/venvmanager/virtualenv/add/)
+* Go on the virtual env. list (http://localhost:8000/admin/venvmanager/virtualenv/),
+select one or many and choose the "Update the virtualenv" action.
+* Now go to the version list () and enjoy the centralized informations.
 
 
 TODO
