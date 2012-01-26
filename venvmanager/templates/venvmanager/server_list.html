@@ -13,16 +13,14 @@
           <th>#</th>
           <th class="yellow">Name</th>
           <th class="blue">Hostname</th>
-          <th class="green"></th>
         </tr>
       </thead>
       <tbody>
         {% for server in object_list %}
         <tr>
           <td>{{ server.id }}</td>
-          <td>{{ server.name }}</td>
+          <td><a href="#">{{ server.name }}</a></td>
           <td>{{ server.full_name }}</td>
-          <td><a href="#">Edit</a></td>
         </tr>
         {% endfor %}
       </tbody>
