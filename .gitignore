@@ -1,2 +1,3 @@
 *.pyc
 venvmanager.db
+virtualenv_manager.egg-info
