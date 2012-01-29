@@ -1,0 +1,24 @@
+{% extends "venvmanager/base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Server Edition/Creation</h1>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <form class="" action="" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        {% include "venvmanager/_form_field.html" %}
+      {% endfor %}
+
+      <div class="actions">
+        <button type="submit" class="btn primary">{% trans "Save Changes" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+

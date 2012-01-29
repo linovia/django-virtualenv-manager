@@ -7,10 +7,22 @@ venvmanager.views
 """
 
 from . import models
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView, DetailView, CreateView
 
 
 class ServerList(ListView):
+    model = models.Server
+
+
+class ServerDetail(DetailView):
+    model = models.Server
+
+
+class ServerUpdate(UpdateView):
+    model = models.Server
+
+
+class ServerNew(CreateView):
     model = models.Server
 
 
