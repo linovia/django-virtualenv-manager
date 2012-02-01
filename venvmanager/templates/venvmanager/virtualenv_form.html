@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="page-header">
-  <h1>Server {% if server %}Edition{% else %}Creation{% endif %}</h1>
+  <h1>Virtual Environment {% if virtual_env %}Edition{% else %}Creation{% endif %}</h1>
 </div>
 
 <div class="row">
@@ -16,11 +16,11 @@
 
       <div class="actions">
         <button type="submit" class="btn primary">{% trans "Save Changes" %}</button>
-        {% if server %}
-        <a href="{% url server-detail server.id %}" class="btn">{% trans "Cancel" %}</a>
-        <a href="{% url server-delete server.id %}" class="btn danger">{% trans "Delete" %}</a>
+        {% if virtual_env %}
+        <a href="{% url venv-detail virtual_env.id %}" class="btn">{% trans "Cancel" %}</a>
+        <a href="{% url venv-delete virtual_env.id %}" class="btn danger">{% trans "Delete" %}</a>
         {% else %}
-        <a href="{% url server %}" class="btn">{% trans "Cancel" %}</a>
+        <a href="{% url venvs %}" class="btn">{% trans "Cancel" %}</a>
         {% endif %}
       </div>
     </form>

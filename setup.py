@@ -13,7 +13,7 @@ tests_require = [
 ]
 
 install_requires = [
-    'Django>=1.2',
+    'Django>=1.4',
     'South>=0.7',
     'Fabric==1.3.3',
 ]

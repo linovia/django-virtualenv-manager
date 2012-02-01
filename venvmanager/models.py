@@ -26,7 +26,7 @@ class VirtualEnv(models.Model):
         return u'[%s] %s' % (self.server.name, self.name)
 
     def get_absolute_url(self):
-        return "#"
+        return reverse_lazy('venv-detail', args=[self.id])
 
 
 class Package(models.Model):

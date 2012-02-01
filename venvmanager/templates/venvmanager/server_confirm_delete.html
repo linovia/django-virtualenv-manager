@@ -1,0 +1,19 @@
+{% extends "venvmanager/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="page-header">
+  <div class="alert alert-error">
+    <h1>Delete server {{ server.name }} ? </h1>
+    <div>&nbsp;</div>
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn danger">{% trans "Yes, delete" %}</button>
+    or
+    <a href="{% url server-update server.id %}" class="btw">Cancel</a>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+
