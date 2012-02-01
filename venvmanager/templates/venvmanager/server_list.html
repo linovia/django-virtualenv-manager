@@ -19,7 +19,7 @@
         {% for server in object_list %}
         <tr>
           <td>{{ server.id }}</td>
-          <td><a href="#">{{ server.name }}</a></td>
+          <td><a href="{{ server.get_absolute_url }}">{{ server.name }}</a></td>
           <td>{{ server.full_name }}</td>
         </tr>
         {% endfor %}

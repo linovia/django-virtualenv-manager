@@ -3,6 +3,7 @@ Models for the virtual env manager
 """
 
 from django.db import models
+from django.core.urlresolvers import reverse_lazy
 
 
 class Server(models.Model):
@@ -12,6 +13,9 @@ class Server(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse_lazy('server-detail', args=[self.id])
+
 
 class VirtualEnv(models.Model):
     name = models.CharField(max_length=128)
@@ -20,6 +24,9 @@ class VirtualEnv(models.Model):
 
     def __unicode__(self):
         return u'[%s] %s' % (self.server.name, self.name)
+
+    def get_absolute_url(self):
+        return "#"
 
 
 class Package(models.Model):

@@ -1,0 +1,33 @@
+{% extends "venvmanager/base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Server: {{ server.name }}</h1> {{ server.full_name }}
+</div>
+
+<div class="row">
+  <div class="span12">
+    <table class="table table-zebra table-bordered">
+        <colgroup>
+            <col>
+            <col style="width:150px;">
+            <col style="width:100px;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Virtual envs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venv in server.virtualenv_set.all %}
+                <tr>
+                    <td><a href="{{ venv.get_absolute_url }}">{{ venv.name }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}
+

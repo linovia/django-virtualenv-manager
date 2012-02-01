@@ -10,10 +10,11 @@ from django.conf.urls.defaults import patterns, url, include
 from . import views
 
 servers_urlpatterns = patterns('',
-    url(r'^$',                      views.ServerList.as_view(),     name='servers'),
-    url(r'^new/$',                  views.ServerNew.as_view(),      name='server-new'),
-    url(r'^(?P<id>\d+)/$',          views.ServerDetail.as_view(),   name='server-detail'),
-    url(r'^(?P<id>\d+)/update/$',   views.ServerUpdate.as_view(),   name='server-update'),
+    url(r'^$',                              views.ServerList.as_view(),     name='servers'),
+    url(r'^new/$',                          views.ServerNew.as_view(),      name='server-new'),
+    url(r'^(?P<server_id>\d+)/$',           views.ServerDetail.as_view(),   name='server-detail'),
+    url(r'^(?P<server_id>\d+)/update/$',    views.ServerUpdate.as_view(),   name='server-update'),
+    url(r'^(?P<server_id>\d+)/delete/$',    views.ServerDelete.as_view(),   name='server-delete'),
 )
 
 urlpatterns = patterns('',
