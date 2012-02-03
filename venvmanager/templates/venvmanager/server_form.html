@@ -20,7 +20,7 @@
         <a href="{% url server-detail server.id %}" class="btn">{% trans "Cancel" %}</a>
         <a href="{% url server-delete server.id %}" class="btn danger">{% trans "Delete" %}</a>
         {% else %}
-        <a href="{% url server %}" class="btn">{% trans "Cancel" %}</a>
+        <a href="{% url servers %}" class="btn">{% trans "Cancel" %}</a>
         {% endif %}
       </div>
     </form>
