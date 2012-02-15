@@ -1,10 +1,112 @@
 {% extends "venvmanager/base.html" %}
 
+{% block extra_js %}
+<script src="{{ STATIC_URL }}js/jquery-1.7.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+{% endblock extra_js %}
+
+
 {% block content %}
 <div class="page-header">
   <h1>Packages</h1>
 </div>
 
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a class="btn" data-toggle="modal" href="#packages-popup">Packages</a>
+    <a class="btn" data-toggle="modal" href="#venvs-popup">Virtual envs</a>
+    <a class="btn" data-toggle="modal" href="#servers-popup">Servers</a>
+  </div>
+  <div class="btn-group">
+    <a class="btn primary" href="#">Scan the virtual envs</a>
+  </div>
+</div>
+
+<div id="packages-popup" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Packages</h3>
+  </div>
+  <form class="form-horizontal" method="POST">
+    {% csrf_token %}
+    <div>
+      <fieldset>
+        <div class="control-group">
+          <div class="controls">
+            {% for package in packages %}
+            <label class="checkbox">
+              <input type="checkbox" name="package_id" value="{{ package.id }}" {% if package.id in filters.package_id %}checked="checked"{% endif %}>
+              {{ package.name }}
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Filter</button>
+      <button type="reset" class="btn">Reset</button>
+    </div>
+  </form>
+</div>
+
+<div id="servers-popup" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Servers</h3>
+  </div>
+  <form class="form-horizontal" method="POST">
+    {% csrf_token %}
+    <div>
+      <fieldset>
+        <div class="control-group">
+          <div class="controls">
+            {% for server in servers %}
+            <label class="checkbox">
+              <input type="checkbox" name="server_id" value="{{ server.id }}" {% if server.id in filters.server_id %}checked="checked"{% endif %}>
+              {{ server.name }}
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Filter</button>
+      <button type="reset" class="btn">Reset</button>
+    </div>
+  </form>
+</div>
+
+<div id="servers-popup" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Virtual environments</h3>
+  </div>
+  <form class="form-horizontal" method="POST">
+    {% csrf_token %}
+    <div>
+      <fieldset>
+        <div class="control-group">
+          <div class="controls">
+            {% for env in venvs %}
+            <label class="checkbox">
+              <input type="checkbox" name="env_id" value="{{ env.id }}" {% if env.id in filters.venv_id %}checked="checked"{% endif %}>
+              {{ env.name }}
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn primary">Filter</button>
+      <button type="reset" class="btn">Reset</button>
+    </div>
+  </form>
+</div>
+
+{% comment %}
 <div class="row">
   <form class="form-horizontal">
     <div class="span4">
@@ -28,6 +130,9 @@
     </div>
   </form>
 </div>
+{% endcomment %}
+
+
 <div class="row">
   <div class="span12">
     <table class="table table-striped table-bordered table-condensed">

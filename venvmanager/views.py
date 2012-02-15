@@ -6,9 +6,12 @@ venvmanager.views
 :license: BSD, see LICENSE for more details.
 """
 
+import urllib
+
 from . import models
 from django.views.generic import ListView, UpdateView, DetailView, CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import redirect
 
 
 #
@@ -85,10 +88,19 @@ FILTER_MAPPING = {
 
 class PackageList(ListView):
     model = models.Version
+    http_method_names = ['get', 'post']
+
+    def post(self, request, *args, **kwargs):
+        # TODO: use redirect & merge the GET and POST arguments
+        filters = {}
+        for arg in FILTER_MAPPING:
+            if arg in self.request.REQUEST.keys():
+                filters[arg] = ','.join(self.request.REQUEST.getlist(arg))
+        return redirect(request.path + '?' + urllib.urlencode(filters))
 
     def convert_filter(self, key):
         filter_name = FILTER_MAPPING[key]
-        self.filters[filter_name] = self.request.GET.getlist(key)
+        self.filters[filter_name] = self.request.REQUEST.getlist(key)
 
         # If list size is 1 then it isn't a list
         if len(self.filters[filter_name]) == 1:
@@ -114,13 +126,15 @@ class PackageList(ListView):
         kwargs = {}
         self.filters = {}
         for arg in FILTER_MAPPING:
-            if arg in self.request.GET.keys():
+            if arg in self.request.REQUEST.keys():
                 kwargs.update(self.convert_filter(arg))
 
         return models.Version.objects.filter(**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(PackageList, self).get_context_data(**kwargs)
+        context['servers'] = models.Server.objects.all().order_by('name')
+        context['venvs'] = models.VirtualEnv.objects.all().order_by('name')
         context['packages'] = models.Package.objects.all().order_by('name')
         context['filters'] = self.filters
         for key, value in list(context['filters'].iteritems()):

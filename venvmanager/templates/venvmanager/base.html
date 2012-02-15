@@ -57,6 +57,8 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    {% block extra_header %}
+    {% endblock extra_header %}
   </head>
 
   <body>
@@ -107,6 +109,9 @@
       </footer>
 
     </div> <!-- /container -->
+
+    {% block extra_js %}
+    {% endblock extra_js %}
 
   </body>
 </html>
