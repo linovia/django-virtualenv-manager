@@ -25,7 +25,12 @@ venv_urlpatterns = patterns('',
     url(r'^(?P<venv_id>\d+)/delete/$',      views.VenvDelete.as_view(),     name='venv-delete'),
 )
 
+package_urlpatterns = patterns('',
+    url(r'^$',                              views.PackageList.as_view(),    name='packages'),
+)
+
 urlpatterns = patterns('',
     url(r'^servers/',   include(server_urlpatterns)),
     url(r'^envs/',      include(venv_urlpatterns)),
+    url(r'^packages/',  include(package_urlpatterns)),
 )

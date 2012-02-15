@@ -69,3 +69,62 @@ class VenvDelete(DeleteView):
     model = models.VirtualEnv
     pk_url_kwarg = 'venv_id'
     success_url = reverse_lazy('venvs')
+
+
+#
+# PACKAGES
+#
+
+FILTER_MAPPING = {
+    'version': 'name__exact',
+    'package_id': 'package_id__in',
+    'venv_id': 'venv_id__in',
+    'server_id': 'venv__server_id__in',
+}
+
+
+class PackageList(ListView):
+    model = models.Version
+
+    def convert_filter(self, key):
+        filter_name = FILTER_MAPPING[key]
+        self.filters[filter_name] = self.request.GET.getlist(key)
+
+        # If list size is 1 then it isn't a list
+        if len(self.filters[filter_name]) == 1:
+            self.filters[filter_name] = self.filters[filter_name][0]
+
+        # If we have a string list, make it a real list
+        if filter_name[-4:] == '__in' and \
+            not isinstance(self.filters[filter_name], (list, tuple)):
+            self.filters[filter_name] = self.filters[filter_name].split(',')
+
+        # Try to cast the list items to integers
+        try:
+            values = []
+            if isinstance(self.filters[filter_name], (list, tuple)):
+                for item in self.filters[filter_name]:
+                    values.append(int(item))
+            self.filters[filter_name] = values
+        except:
+            pass
+        return {filter_name: self.filters[filter_name]}
+
+    def get_queryset(self):
+        kwargs = {}
+        self.filters = {}
+        for arg in FILTER_MAPPING:
+            if arg in self.request.GET.keys():
+                kwargs.update(self.convert_filter(arg))
+
+        return models.Version.objects.filter(**kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(PackageList, self).get_context_data(**kwargs)
+        context['packages'] = models.Package.objects.all().order_by('name')
+        context['filters'] = self.filters
+        for key, value in list(context['filters'].iteritems()):
+            if key[-4:] == '__in':
+                context['filters'][key[:-4]] = value
+                del context['filters'][key]
+        return context
