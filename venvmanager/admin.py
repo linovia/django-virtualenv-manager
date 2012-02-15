@@ -15,6 +15,7 @@ def check_virtual_env(modeladmin, request, queryset):
             if '==' not in result:
                 print 'TODO:', result
                 continue
+            result = result.strip('\r')
             package_name, version_name = result.split('==')
             package, created = Package.objects.get_or_create(name=package_name)
             version, created = Version.objects.get_or_create(
