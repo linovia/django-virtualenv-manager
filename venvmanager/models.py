@@ -38,8 +38,8 @@ class Package(models.Model):
 
 class Version(models.Model):
     name = models.CharField(max_length=32)
-    package = models.ForeignKey(Package)
-    venv = models.ForeignKey(VirtualEnv)
+    package = models.ForeignKey(Package, related_name='versions')
+    venv = models.ForeignKey(VirtualEnv, related_name='versions')
 
     def __unicode__(self):
         return u'[%s:%s] %s %s' % (

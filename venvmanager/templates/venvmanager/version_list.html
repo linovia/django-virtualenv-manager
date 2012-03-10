@@ -18,7 +18,7 @@
     <a class="btn" data-toggle="modal" href="#servers-popup">Servers</a>
   </div>
   <div class="btn-group">
-    <a class="btn primary" href="#">Scan the virtual envs</a>
+    <a class="btn primary" href="{% url update-all-venvs %}">Scan the virtual envs</a>
   </div>
 </div>
 
@@ -149,7 +149,7 @@
         {% for version in object_list %}
         <tr>
           <td>{{ version.id }}</td>
-          <td><a href="#">{{ version.package.name }}</a></td>
+          <td><a href="{% url package-detail version.package.id %}">{{ version.package.name }}</a></td>
           <td><a href="#">{{ version.name }}</a></td>
           <td><a href="#">{{ version.venv.name }}</a></td>
           <td><a href="#">{{ version.venv.server.name }}</a></td>

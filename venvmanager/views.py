@@ -8,7 +8,7 @@ venvmanager.views
 
 import urllib
 
-from . import models
+from venvmanager import models
 from django.views.generic import ListView, UpdateView, DetailView, CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
@@ -142,3 +142,39 @@ class PackageList(ListView):
                 context['filters'][key[:-4]] = value
                 del context['filters'][key]
         return context
+
+
+class PackageDetail(DetailView):
+    model = models.Package
+    pk_url_kwarg = 'package_id'
+
+
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def update_venvs(request):
+    from fabric.api import env, run
+
+    env.user = 'ordoquy'
+    for venv in models.VirtualEnv.objects.all():
+        env.host_string = venv.server.full_name
+        results = run('source %s/bin/activate; pip freeze -l 2>/dev/null' % venv.path)
+        for result in results.split('\n'):
+            if result[0:2] == '##':
+                continue
+            if '==' not in result:
+                print 'TODO:', result
+                continue
+            result = result.strip('\r')
+            package_name, version_name = result.split('==')
+            package, created = models.Package.objects.get_or_create(name=package_name)
+            version, created = models.Version.objects.get_or_create(
+                package=package,
+                venv=venv
+            )
+            if created or version.name != version_name:
+                version.name = version_name
+                version.save()
+
+    return redirect('packages')

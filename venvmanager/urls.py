@@ -23,10 +23,13 @@ venv_urlpatterns = patterns('',
     url(r'^(?P<venv_id>\d+)/$',             views.VenvDetail.as_view(),     name='venv-detail'),
     url(r'^(?P<venv_id>\d+)/update/$',      views.VenvUpdate.as_view(),     name='venv-update'),
     url(r'^(?P<venv_id>\d+)/delete/$',      views.VenvDelete.as_view(),     name='venv-delete'),
+
+    url(r'^update/$',                       views.update_venvs,             name='update-all-venvs'),
 )
 
 package_urlpatterns = patterns('',
     url(r'^$',                              views.PackageList.as_view(),    name='packages'),
+    url(r'^(?P<package_id>\d+)/$',           views.PackageDetail.as_view(),  name='package-detail'),
 )
 
 urlpatterns = patterns('',

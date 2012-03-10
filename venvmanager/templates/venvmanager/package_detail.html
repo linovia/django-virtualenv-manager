@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="page-header">
-  <h1>Virutal Environment: {{ virtualenv.name }}</h1> {{ virtualenv.full_name }} <a href="{% url venv-update virtualenv.id %}" class="btn pull-right">Edit</a>
+  <h1>Package: {{ package.name }}</h1>
 </div>
 
 <div class="row">
@@ -15,20 +15,21 @@
         </colgroup>
         <thead>
             <tr>
-                <th>Package</th>
                 <th>Version</th>
+                <th>Virtual Env</th>
+                <th>Serveur</th>
             </tr>
         </thead>
         <tbody>
-            {% for version in virtualenv.versions.all %}
+            {% for version in package.versions.all %}
                 <tr>
-                    <td>{{ version.package.name }}</td>
                     <td>{{ version.name }}</td>
+                    <td>{{ version.venv.name }}</td>
+                    <td>{{ version.venv.server.name }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url venv-remote-check %}" class="btn primary">Check the virtual env</a>
   </div>
 </div>
 
